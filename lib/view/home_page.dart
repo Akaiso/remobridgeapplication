@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
                        // border: BorderSide.sol
                         ),
-                        child: QrImageView(data:'https://remobridge.vercel.app',  ),
+                        child: QrImageView(data:'https://remobridgeapplication.vercel.app',  ),
                       ),
                       const SizedBox(height: 50,),
                       const Text("Building bridges to remote opportunities", style: TextStyle(color: Colors.blue),),
