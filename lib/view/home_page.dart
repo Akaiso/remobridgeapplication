@@ -1,19 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_common/get_reset.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html; // Needed for custom behavior on web
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
+
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
@@ -56,6 +57,72 @@ class _HomePageState extends State<HomePage> {
   void launchURLInNewTab(String url) {
     html.window.open(url, '_blank');
   }
+
+  // Function to collect and store user data in Firestore
+  // Future<void> _storeUserData() async {
+  //   // Get the data from the controllers
+  //   String username = nameController.text.trim();
+  //   String phone = phoneController.text.trim();
+  //   String email = emailController.text.trim();
+  //   String province = locationController.text.trim();
+  //
+  //   // Access Firestore to store the data
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //
+  //
+  //   // Store data in a Firestore collection called 'users'
+  //   try {
+  //     await firestore.collection('users').add({
+  //       'username': username,
+  //       'phone': phone,
+  //       'email': email,
+  //       'province': province,
+  //     });
+  //     // Show success message
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('User data stored successfully!')),
+  //     );
+  //   } catch (e) {
+  //     // Show error message
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Failed to store data: $e')),
+  //     );
+  //   }
+  // }
+
+
+  Future<void> _storeUserData() async {
+    // Get the data from the controllers
+    String username = nameController.text.trim();
+    String phone = phoneController.text.trim();
+    String email = emailController.text.trim();
+    String province = locationController.text.trim();
+
+    // Access Realtime Database to store the data
+    DatabaseReference dbRef = FirebaseDatabase.instance.ref();
+
+    try {
+      // Store data in the Realtime Database under the 'users' node
+      await dbRef.child('users').push().set({
+        'username': username,
+        'phone': phone,
+        'email': email,
+        'province': province,
+      });
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('User data stored successfully!')),
+      );
+    } catch (e) {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to store data: $e')),
+      );
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +235,10 @@ class _HomePageState extends State<HomePage> {
                           "Province e.g Wuse 2, FCT", Icons.location_on, null),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: _submitForm,
+                        onPressed:(){
+                          _submitForm;
+                          _storeUserData;
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red, // primary color
                           foregroundColor: Colors.white,

@@ -39,6 +39,10 @@ dependencies:
   qr_flutter: ^4.1.0
   url_launcher: ^6.3.1
   auto_size_text: ^3.0.0
+  firebase_core: ^3.13.0
+  cloud_firestore: ^5.6.6
+  flutter_dotenv: ^5.2.1
+  firebase_database: ^11.3.5
 
 dev_dependencies:
   flutter_test:
