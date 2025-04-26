@@ -11,9 +11,12 @@ void main() async {
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyCcEKYVTRhShTPy4ygXZ5yjlXkk3kU2ONM" ,// dotenv.env['APIKEY']!,
+          authDomain: "remobridgeapplication.firebaseapp.com",
           appId: "1:298456778897:web:a851de03ca8213c269d730",//dotenv.env['APPID']!,
           messagingSenderId: "298456778897", //dotenv.env['MESSAGINGSENDERID']!,
           projectId: "remobridgeapplication", //dotenv.env['PROJECTID']!
+          storageBucket: "remobridgeapplication.firebasestorage.app",
+          databaseURL: "https://remobridgeapplication-default-rtdb.firebaseio.com"
       ));
 
   runApp(const MyApp());

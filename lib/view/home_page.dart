@@ -236,8 +236,9 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed:(){
-                          _submitForm();
                           _storeUserData();
+                          _submitForm();
+
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red, // primary color
