@@ -7,13 +7,14 @@ import 'package:remobridgeapplication/view/qrcode_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+ // await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
-      options: FirebaseOptions(
-          apiKey: dotenv.env['APIKEY']!,
-          appId: dotenv.env['APPID']!,
-          messagingSenderId: dotenv.env['MESSAGINGSENDERID']!,
-          projectId: dotenv.env['PROJECTID']!));
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyCcEKYVTRhShTPy4ygXZ5yjlXkk3kU2ONM" ,// dotenv.env['APIKEY']!,
+          appId: "1:298456778897:web:a851de03ca8213c269d730",//dotenv.env['APPID']!,
+          messagingSenderId: "298456778897", //dotenv.env['MESSAGINGSENDERID']!,
+          projectId: "remobridgeapplication", //dotenv.env['PROJECTID']!
+      ));
 
   runApp(const MyApp());
 }
