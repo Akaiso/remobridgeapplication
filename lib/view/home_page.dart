@@ -14,8 +14,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
-
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
 
@@ -90,7 +88,6 @@ class _HomePageState extends State<HomePage> {
   //   }
   // }
 
-
   Future<void> _storeUserData() async {
     // Get the data from the controllers
     String username = nameController.text.trim();
@@ -122,8 +119,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +126,8 @@ class _HomePageState extends State<HomePage> {
         title: const AutoSizeText(
           minFontSize: 12,
           "Remobridge digital skill application",
-          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.blue, fontSize: 18),
+          style: TextStyle(
+              fontWeight: FontWeight.w600, color: Colors.blue, fontSize: 18),
         ),
         centerTitle: true,
         // backgroundColor: Colors.redAccent,
@@ -142,24 +138,40 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+          padding: MediaQuery.of(context).size.width < 600
+              ? const EdgeInsets.symmetric(horizontal: 30, vertical: 30)
+              : EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width / 5,
+                  vertical: 20),
           child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: InkWell(
-                    onTap: () {
-                      launchURLInNewTab('https://remobridge.vercel.app');
-                    },
-                    child: const Text(
-                      '"Click here to visit our website"',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline),
-                    )),
+              Row(
+                children: [
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width > 600
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 3.5,
+                      child: Image.asset("assets/images/remobridge_logo.png")),
+                  const Spacer(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                        onTap: () {
+                          launchURLInNewTab('https://remobridge.vercel.app');
+                        },
+                        child: const Text(
+                          '"Click here to visit our website"',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline),
+                        )),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 40,
+              ),
               const Text.rich(
                 TextSpan(
                   children: [
@@ -235,10 +247,9 @@ class _HomePageState extends State<HomePage> {
                           "Province e.g Wuse 2, FCT", Icons.location_on, null),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed:(){
+                        onPressed: () {
                           _storeUserData();
                           _submitForm();
-
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red, // primary color
